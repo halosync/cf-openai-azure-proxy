@@ -14,11 +14,8 @@ jobs:
       - name: "Add env vars to wrangler.toml"
         run: |
           echo "\n\naccount_id = \"${{ secrets.CLOUDFLARE_ACCOUNT_ID }}\"" >> wrangler.toml
-      - name: "Add .env file"
-        run: |
-          touch .env
           echo "\n\n[vars]" >> wrangler.toml
-          echo "\nRESOURCE_NAME = \"${{ secrets.RESOURCE_NAME }}\""
+          echo "\nRESOURCE_NAME = \"${{ secrets.RESOURCE_NAME }}\"" >> wrangler.toml
           echo ""\nDEPLOY_NAME_GPT35 = \"${{ secrets.DEPLOY_NAME_GPT35 }}\"" >> wrangler.toml
           echo ""\nDEPLOY_NAME_GPT4 = \"${{ secrets.DEPLOY_NAME_GPT4 }}\"" >> wrangler.toml
           echo ""\nDEPLOY_NAME_GPT4_32K = \"${{ secrets.DEPLOY_NAME_GPT4_32K }}\"" >> wrangler.toml

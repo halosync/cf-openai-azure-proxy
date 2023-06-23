@@ -11,10 +11,17 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v3
-      - name: "Add Account ID to wrangler.toml"
+      - name: "Add env vars to wrangler.toml"
+        run: |
+          echo "\n\naccount_id = \"${{ secrets.CLOUDFLARE_ACCOUNT_ID }}\"" >> wrangler.toml
+      - name: "Add .env file"
         run: |
           touch .env
-          echo account_id = \"${{ secrets.CLOUDFLARE_ACCOUNT_ID }}\" >> wrangler.toml
+          echo "\n\n[vars]" >> wrangler.toml
+          echo "\nRESOURCE_NAME = \"${{ secrets.RESOURCE_NAME }}\""
+          echo ""\nDEPLOY_NAME_GPT35 = \"${{ secrets.DEPLOY_NAME_GPT35 }}\"" >> wrangler.toml
+          echo ""\nDEPLOY_NAME_GPT4 = \"${{ secrets.DEPLOY_NAME_GPT4 }}\"" >> wrangler.toml
+          echo ""\nDEPLOY_NAME_GPT4_32K = \"${{ secrets.DEPLOY_NAME_GPT4_32K }}\"" >> wrangler.toml
       - name: "Install dependencies"
         run: npm install
       - name: "Deploy to Cloudflare"
